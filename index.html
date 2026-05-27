@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Анна & Иван — свадебное приглашение</title>
+  <style>
+    :root {
+      --bg: #fff8f3;
+      --card: rgba(255, 255, 255, 0.78);
+      --text: #2f2722;
+      --muted: #786b62;
+      --accent: #b98269;
+      --accent-dark: #8f5f4d;
+      --line: rgba(47, 39, 34, 0.12);
+      --shadow: 0 20px 60px rgba(100, 70, 50, 0.14);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(185, 130, 105, 0.26), transparent 32rem),
+        radial-gradient(circle at bottom right, rgba(217, 190, 164, 0.30), transparent 28rem),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 0;
+    }
+
+    .hero {
+      width: 100%;
+      padding: clamp(32px, 6vw, 72px);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 18px);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(185, 130, 105, 0.12);
+      z-index: -1;
+    }
+
+    .hero::before { top: -80px; left: -70px; }
+    .hero::after { right: -90px; bottom: -80px; }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(48px, 10vw, 112px);
+      line-height: 0.95;
+      font-weight: 500;
+    }
+
+    .date {
+      margin: 28px auto 0;
+      font-size: clamp(18px, 2.8vw, 28px);
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); background: var(--accent-dark); }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--accent-dark);
+      border: 1px solid rgba(143, 95, 77, 0.32);
+    }
+
+    main { padding: 24px 0 72px; }
+
+    section {
+      margin-top: 24px;
+      padding: clamp(24px, 4vw, 40px);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 36px rgba(100, 70, 50, 0.08);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 248, 243, 0.8);
+      border: 1px solid var(--line);
+    }
+
+    .info-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent-dark);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .countdown div {
+      padding: 18px 10px;
+      border-radius: 20px;
+      background: #fff;
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+
+    .countdown span {
+      display: block;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent-dark);
+    }
+
+    .countdown small { color: var(--muted); }
+
+    form {
+      display: grid;
+      gap: 14px;
+      max-width: 680px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid rgba(47, 39, 34, 0.16);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font: inherit;
+      background: #fff;
+      color: var(--text);
+    }
+
+    textarea { min-height: 92px; resize: vertical; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .note {
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .guest-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .guest-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .status {
+      color: var(--accent-dark);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 0 56px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      .grid,
+      .countdown,
+      .form-row { grid-template-columns: 1fr; }
+      .guest-list li { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page">
+    <div class="hero">
+      <p class="eyebrow">Свадебное приглашение</p>
+      <h1>Анна<br>& Иван</h1>
+      <p class="date">15 августа 2026 · Москва</p>
+      <div class="hero-actions">
+        <a class="button" href="#rsvp">Подтвердить участие</a>
+        <a class="button secondary" href="#details">Посмотреть детали</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="details">
+      <h2>Детали события</h2>
+      <div class="grid">
+        <div class="info-card">
+          <strong>Когда</strong>
+          15 августа 2026, сбор гостей в 15:30
+        </div>
+        <div class="info-card">
+          <strong>Где</strong>
+          Ресторан «Белый сад», Москва
+        </div>
+        <div class="info-card">
+          <strong>Дресс-код</strong>
+          Светлые и пастельные оттенки
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>До свадьбы осталось</h2>
+      <div class="countdown" aria-label="Обратный отсчет до свадьбы">
+        <div><span id="days">0</span><small>дней</small></div>
+        <div><span id="hours">0</span><small>часов</small></div>
+        <div><span id="minutes">0</span><small>минут</small></div>
+        <div><span id="seconds">0</span><small>секунд</small></div>
+      </div>
+    </section>
+
+    <section id="rsvp">
+      <h2>Вы придете?</h2>
+      <p class="note">Ответы будут отправляться в Google Sheets. Сначала создайте таблицу и Apps Script по инструкции, затем вставьте ссылку веб-приложения в переменную GOOGLE_SCRIPT_URL внизу файла.</p>
+
+      <form id="rsvpForm">
+        <label>
+          Ваше имя
+          <input name="name" type="text" placeholder="Например: Мария Петрова" required />
+        </label>
+
+        <div class="form-row">
+          <label>
+            Статус
+            <select name="status" required>
+              <option value="Приду">Приду</option>
+              <option value="Приду с парой">Приду с парой</option>
+              <option value="Не смогу">Не смогу</option>
+            </select>
+          </label>
+
+          <label>
+            Количество гостей
+            <input name="count" type="number" min="1" max="5" value="1" required />
+          </label>
+        </div>
+
+        <label>
+          Комментарий
+          <textarea name="message" placeholder="Пожелания по питанию, вопросы или поздравление"></textarea>
+        </label>
+
+        <button class="button" type="submit">Отправить ответ</button>
+        <p class="note" id="formStatus"></p>
+      </form>
+    </section>
+
+    <section>
+      <h2>Где смотреть ответы</h2>
+      <p class="note">Молодожены будут видеть все ответы в Google Sheets: дата ответа, имя гостя, статус, количество гостей и комментарий.</p>
+    </section>
+  </main>
+
+  <footer class="page">
+    С любовью, Анна & Иван · 2026
+  </footer>
+
+  <script>
+    // После публикации Google Apps Script вставьте сюда ссылку веб-приложения.
+    // Она будет выглядеть примерно так: https://script.google.com/macros/s/AKfycb.../exec
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7Sqyim_Q_qojfN6cQB6EuMNvDyirWP5_RJjWzCu1rbKiM_Cvmp-EHMadtBUQnJ3jTtg/exec';
+
+    const weddingDate = new Date('2026-08-15T15:30:00+03:00');
+    const countdownIds = ['days', 'hours', 'minutes', 'seconds'];
+    const form = document.querySelector('#rsvpForm');
+    const formStatus = document.querySelector('#formStatus');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = Math.max(0, weddingDate - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      [days, hours, minutes, seconds].forEach((value, index) => {
+        document.querySelector(`#${countdownIds[index]}`).textContent = value;
+      });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (GOOGLE_SCRIPT_URL.includes('ВСТАВЬТЕ_СЮДА')) {
+        formStatus.textContent = 'Сначала вставьте ссылку Google Apps Script в код сайта.';
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const formData = new FormData(form);
+      formData.append('createdAt', new Date().toISOString());
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Отправляем...';
+      formStatus.textContent = '';
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+
+        form.reset();
+        formStatus.textContent = 'Спасибо! Ответ отправлен. Молодожены увидят его в Google Sheets.';
+      } catch (error) {
+        formStatus.textContent = 'Не получилось отправить ответ. Проверьте ссылку Apps Script и доступ к интернету.';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Отправить ответ';
+      }
+    });
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
