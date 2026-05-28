@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Анна & Иван — свадебное приглашение</title>
+  <style>
+    :root {
+      --bg: #fff8f3;
+      --card: rgba(255, 255, 255, 0.78);
+      --text: #2f2722;
+      --muted: #786b62;
+      --accent: #b98269;
+      --accent-dark: #8f5f4d;
+      --success: #4f7f5f;
+      --warning: #9a6b2f;
+      --line: rgba(47, 39, 34, 0.12);
+      --shadow: 0 20px 60px rgba(100, 70, 50, 0.14);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(185, 130, 105, 0.26), transparent 32rem),
+        radial-gradient(circle at bottom right, rgba(217, 190, 164, 0.30), transparent 28rem),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 0;
+    }
+
+    .hero {
+      width: 100%;
+      padding: clamp(32px, 6vw, 72px);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 18px);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(185, 130, 105, 0.12);
+      z-index: -1;
+    }
+
+    .hero::before { top: -80px; left: -70px; }
+    .hero::after { right: -90px; bottom: -80px; }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(48px, 10vw, 112px);
+      line-height: 0.95;
+      font-weight: 500;
+    }
+
+    .date {
+      margin: 28px auto 0;
+      font-size: clamp(18px, 2.8vw, 28px);
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .button:hover { transform: translateY(-2px); background: var(--accent-dark); }
+    .button:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--accent-dark);
+      border: 1px solid rgba(143, 95, 77, 0.32);
+    }
+
+    .button.secondary:hover {
+      background: rgba(185, 130, 105, 0.08);
+    }
+
+    main { padding: 24px 0 72px; }
+
+    section {
+      margin-top: 24px;
+      padding: clamp(24px, 4vw, 40px);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 36px rgba(100, 70, 50, 0.08);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 248, 243, 0.8);
+      border: 1px solid var(--line);
+    }
+
+    .info-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent-dark);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .countdown div {
+      padding: 18px 10px;
+      border-radius: 20px;
+      background: #fff;
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+
+    .countdown span {
+      display: block;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent-dark);
+    }
+
+    .countdown small { color: var(--muted); }
+
+    form {
+      display: grid;
+      gap: 14px;
+      max-width: 680px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid rgba(47, 39, 34, 0.16);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font: inherit;
+      background: #fff;
+      color: var(--text);
+    }
+
+    textarea { min-height: 92px; resize: vertical; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .note {
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .status-message {
+      margin: 0;
+      min-height: 26px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .status-message.success { color: var(--success); }
+    .status-message.warning { color: var(--warning); }
+
+    .hidden { display: none !important; }
+
+    .thanks-card {
+      display: grid;
+      gap: 16px;
+      max-width: 760px;
+    }
+
+    .thanks-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(79, 127, 95, 0.12);
+      color: var(--success);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .answer-summary {
+      padding: 18px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .answer-summary p {
+      margin: 6px 0;
+    }
+
+    .couple-guide {
+      counter-reset: guide;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .guide-step {
+      position: relative;
+      padding: 18px 18px 18px 58px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .guide-step::before {
+      counter-increment: guide;
+      content: counter(guide);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .guide-step strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--accent-dark);
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 0 56px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      .grid,
+      .countdown,
+      .form-row { grid-template-columns: 1fr; }
+      .hero-actions { align-items: stretch; }
+      .hero-actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page">
+    <div class="hero">
+      <p class="eyebrow">Свадебное приглашение</p>
+      <h1>Анна<br>& Иван</h1>
+      <p class="date">15 августа 2026 · Москва</p>
+      <div class="hero-actions">
+        <a class="button" href="#rsvp">Подтвердить участие</a>
+        <a class="button secondary" href="#details">Посмотреть детали</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="details">
+      <h2>Детали события</h2>
+      <div class="grid">
+        <div class="info-card">
+          <strong>Когда</strong>
+          15 августа 2026, сбор гостей в 15:30
+        </div>
+        <div class="info-card">
+          <strong>Где</strong>
+          Ресторан «Белый сад», Москва
+        </div>
+        <div class="info-card">
+          <strong>Дресс-код</strong>
+          Светлые и пастельные оттенки
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>До свадьбы осталось</h2>
+      <div class="countdown" aria-label="Обратный отсчет до свадьбы">
+        <div><span id="days">0</span><small>дней</small></div>
+        <div><span id="hours">0</span><small>часов</small></div>
+        <div><span id="minutes">0</span><small>минут</small></div>
+        <div><span id="seconds">0</span><small>секунд</small></div>
+      </div>
+    </section>
+
+    <section id="rsvp">
+      <h2>Вы придете?</h2>
+      <p class="note">Заполните форму, и ваш ответ попадет в таблицу молодоженов.</p>
+
+      <form id="rsvpForm">
+        <label>
+          Ваше имя
+          <input name="name" type="text" placeholder="Например: Мария Петрова" required />
+        </label>
+
+        <div class="form-row">
+          <label>
+            Статус
+            <select name="status" required>
+              <option value="Приду">Приду</option>
+              <option value="Приду с парой">Приду с парой</option>
+              <option value="Не смогу">Не смогу</option>
+            </select>
+          </label>
+
+          <label>
+            Количество гостей
+            <input name="count" type="number" min="1" max="5" value="1" required />
+          </label>
+        </div>
+
+        <label>
+          Комментарий
+          <textarea name="message" placeholder="Пожелания по питанию, вопросы или поздравление"></textarea>
+        </label>
+
+        <button class="button" type="submit">Отправить ответ</button>
+        <p class="status-message" id="formStatus"></p>
+      </form>
+    </section>
+
+    <section id="thanks" class="hidden">
+      <div class="thanks-card">
+        <div class="thanks-icon">✓</div>
+        <div>
+          <h2>Спасибо за ответ!</h2>
+          <p class="note">Мы получили вашу заявку. Молодожены увидят ее в Google Sheets.</p>
+        </div>
+        <div class="answer-summary" id="answerSummary"></div>
+        <div class="hero-actions" style="justify-content: flex-start; margin-top: 0;">
+          <button class="button secondary" id="editAnswerButton" type="button">Изменить ответ</button>
+          <a class="button" href="#details">Вернуться к деталям</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="coupleGuide">
+      <h2>Памятка для молодоженов</h2>
+      <p class="note">Этот блок можно оставить временно для проверки, а перед отправкой гостям удалить или скрыть.</p>
+      <div class="couple-guide">
+        <div class="guide-step">
+          <strong>Где смотреть ответы</strong>
+          Откройте Google Sheets-таблицу, к которой привязан Apps Script. Новые ответы появляются в листе RSVP.
+        </div>
+        <div class="guide-step">
+          <strong>Что должно быть в таблице</strong>
+          Рекомендуемые колонки: Дата, Имя, Статус, Количество гостей, Комментарий.
+        </div>
+        <div class="guide-step">
+          <strong>Как проверить сайт</strong>
+          Откройте опубликованную ссылку GitHub Pages, отправьте тестовый ответ и проверьте, появилась ли новая строка в Google Sheets.
+        </div>
+        <div class="guide-step">
+          <strong>Что делать перед отправкой гостям</strong>
+          Замените имена, дату, место, дресс-код и убедитесь, что в переменной GOOGLE_SCRIPT_URL стоит настоящая ссылка Apps Script.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">
+    С любовью, Анна & Иван · 2026
+  </footer>
+
+  <script>
+    // После публикации Google Apps Script вставьте сюда ссылку веб-приложения.
+    // ВАЖНО: если у вас уже есть рабочая ссылка, оставьте именно ее.
+    // Пример формата: https://script.google.com/macros/s/AKfycb.../exec
+    const GOOGLE_SCRIPT_URL = 'ВСТАВЬТЕ_СЮДА_ССЫЛКУ_GOOGLE_APPS_SCRIPT';
+
+    const weddingDate = new Date('2026-08-15T15:30:00+03:00');
+    const countdownIds = ['days', 'hours', 'minutes', 'seconds'];
+    const form = document.querySelector('#rsvpForm');
+    const formStatus = document.querySelector('#formStatus');
+    const thanksSection = document.querySelector('#thanks');
+    const answerSummary = document.querySelector('#answerSummary');
+    const editAnswerButton = document.querySelector('#editAnswerButton');
+    const rsvpSection = document.querySelector('#rsvp');
+
+    const STORAGE_KEY = 'weddingRsvpLastAnswer';
+    let isSubmitting = false;
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = Math.max(0, weddingDate - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      [days, hours, minutes, seconds].forEach((value, index) => {
+        document.querySelector(`#${countdownIds[index]}`).textContent = value;
+      });
+    }
+
+    function getSavedAnswer() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY));
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveAnswer(answer) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(answer));
+    }
+
+    function clearSavedAnswer() {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function showThanks(answer) {
+      answerSummary.innerHTML = `
+        <p><strong>Имя:</strong> ${escapeHtml(answer.name)}</p>
+        <p><strong>Статус:</strong> ${escapeHtml(answer.status)}</p>
+        <p><strong>Количество гостей:</strong> ${escapeHtml(answer.count)}</p>
+        ${answer.message ? `<p><strong>Комментарий:</strong> ${escapeHtml(answer.message)}</p>` : ''}
+      `;
+
+      rsvpSection.classList.add('hidden');
+      thanksSection.classList.remove('hidden');
+      thanksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showForm(message = '') {
+      thanksSection.classList.add('hidden');
+      rsvpSection.classList.remove('hidden');
+      formStatus.textContent = message;
+      formStatus.className = message ? 'status-message warning' : 'status-message';
+      rsvpSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function fillForm(answer) {
+      form.elements.name.value = answer.name || '';
+      form.elements.status.value = answer.status || 'Приду';
+      form.elements.count.value = answer.count || '1';
+      form.elements.message.value = answer.message || '';
+    }
+
+    function initSavedAnswer() {
+      const savedAnswer = getSavedAnswer();
+
+      if (savedAnswer) {
+        showThanks(savedAnswer);
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (isSubmitting) {
+        return;
+      }
+
+      if (GOOGLE_SCRIPT_URL.includes('ВСТАВЬТЕ_СЮДА')) {
+        formStatus.textContent = 'Сначала вставьте ссылку Google Apps Script в код сайта.';
+        formStatus.className = 'status-message warning';
+        return;
+      }
+
+      const existingAnswer = getSavedAnswer();
+      if (existingAnswer) {
+        showThanks(existingAnswer);
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const formData = new FormData(form);
+      const answer = {
+        name: formData.get('name').trim(),
+        status: formData.get('status'),
+        count: formData.get('count'),
+        message: formData.get('message').trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      if (!answer.name) {
+        formStatus.textContent = 'Пожалуйста, укажите имя.';
+        formStatus.className = 'status-message warning';
+        return;
+      }
+
+      formData.append('createdAt', answer.createdAt);
+
+      isSubmitting = true;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Отправляем...';
+      formStatus.textContent = '';
+      formStatus.className = 'status-message';
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+
+        saveAnswer(answer);
+        form.reset();
+        formStatus.textContent = '';
+        showThanks(answer);
+      } catch (error) {
+        formStatus.textContent = 'Не получилось отправить ответ. Проверьте интернет и ссылку Apps Script.';
+        formStatus.className = 'status-message warning';
+      } finally {
+        isSubmitting = false;
+        submitButton.disabled = false;
+        submitButton.textContent = 'Отправить ответ';
+      }
+    });
+
+    editAnswerButton.addEventListener('click', () => {
+      const savedAnswer = getSavedAnswer();
+      clearSavedAnswer();
+
+      if (savedAnswer) {
+        fillForm(savedAnswer);
+      }
+
+      showForm('Можно отправить новый вариант ответа. В таблице появится новая строка, старую при необходимости удалите вручную.');
+    });
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    initSavedAnswer();
+  </script>
+</body>
+</html>
